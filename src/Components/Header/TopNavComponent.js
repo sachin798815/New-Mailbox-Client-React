@@ -18,7 +18,7 @@ const TopNavComponent = () => {
       <Row xs={6} className="mx-5 border rounded-3">
         {isAuthenticated && (
           <Link to="/inbox" className="text-decoration-none w-100">
-            {unReadMailCount} New mail
+            {unReadMailCount} Unread mails
           </Link>
         )}
       </Row>

@@ -32,9 +32,9 @@ const SignInPage = () => {
 
     let url;
     if (isSignIn) {
-      url = "";
+      url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDyrkJHNmWYJZ4n7cMyM9Z8ijsV2kiD6j0";
     } else {
-      url = "";
+      url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDyrkJHNmWYJZ4n7cMyM9Z8ijsV2kiD6j0";
     }
 
     try {
