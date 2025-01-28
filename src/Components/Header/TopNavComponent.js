@@ -1,6 +1,7 @@
-import { Navbar, Row } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import styles from "./TopNavComponent.module.css";
 
 const TopNavComponent = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -9,20 +10,19 @@ const TopNavComponent = () => {
   );
 
   return (
-    <Navbar className="bg-secondary h-auto m-0">
-      <Row xs={6}>
-        <Navbar.Brand href="#home" className="m-2">
-          Mailbox-Client
-        </Navbar.Brand>
-      </Row>
-      <Row xs={6} className="mx-5 border rounded-3">
-        {isAuthenticated && (
-          <Link to="/inbox" className="text-decoration-none w-100">
+    <Navbar className={styles.topNav}>
+      <a href="#home" className={styles.brand}>
+        APNA-MAIL
+      </a>
+      {isAuthenticated && (
+        <div className={styles.unreadMailContainer}>
+          <Link to="/inbox" className={styles.unreadMailLink}>
             {unReadMailCount} Unread mails
           </Link>
-        )}
-      </Row>
+        </div>
+      )}
     </Navbar>
   );
 };
+
 export default TopNavComponent;

@@ -4,44 +4,37 @@ import { NavLink, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import ComposeEmailPage from "../Body/ComposeEmailPage";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/AuthStore";
+import styles from "./NavComponent.module.css";
 
 const NavComponent = () => {
   const [showCompose, setShowCompose] = useState(false);
-  const dispatch =useDispatch();
-  const history=useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  // const isAuthenticated = true;
+
   const showComposeFunction = () => {
     setShowCompose((prev) => !prev);
   };
-  const logOutFunction=()=>{
+
+  const logOutFunction = () => {
     dispatch(authActions.logout());
-    history.push('/');
-  }
+    history.push("/");
+  };
 
   return (
     isAuthenticated && (
       <Navbar
-        bg="light"
-        className="flex-column align-items-start p-3 h-100 bg-secondary"
+        className={`flex-column align-items-start p-3 h-100 bg-secondary ${styles.navColumn}`}
       >
         <Container>
           <Nav className="flex-column">
-            <Button
-              variant="primary"
-              className="my-2"
+            <bdoutton
+              className={styles.composeButton}
               onClick={showComposeFunction}
             >
               COMPOSE
-            </Button>
-            <NavLink
-              to="/home"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              HOME
-            </NavLink>
+            </bdoutton>
+
             <NavLink
               to="/inbox"
               className={({ isActive }) =>
@@ -58,15 +51,19 @@ const NavComponent = () => {
             >
               SENT
             </NavLink>
-            <Button
-              variant="danger"
-              className="my-2"
-              onClick={logOutFunction}
-            >
-              LOGOUT
-            </Button>
           </Nav>
         </Container>
+
+        {/* Logout button placed at the end */}
+        
+        <Button
+          variant="danger"
+          className={`${styles.logoutButton}`}
+          onClick={logOutFunction}
+        >
+          LOGOUT
+        </Button>
+
         {showCompose && (
           <ComposeEmailPage
             onShow={showComposeFunction}

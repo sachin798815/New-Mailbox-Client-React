@@ -1,7 +1,6 @@
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import "./App.css";
 import SignInPage from "./Components/SignInPage";
-import HomePage from "./Components/Body/HomePage";
 import NavComponent from "./Components/Header/NavComponent";
 import { Container, Row, Col } from "react-bootstrap";
 import TopNavComponent from "./Components/Header/TopNavComponent";
@@ -9,7 +8,8 @@ import InboxPage from "./Components/Body/InboxPage";
 import MailDetailPage from "./Components/Body/MailDetailPage";
 import { useSelector } from "react-redux";
 import SentPage from "./Components/Body/SentPage";
-import SentDetailPage from "./Components/Body/SentDetaiPage";
+import SentDetailPage from "./Components/Body/SentDetailPage";
+import styles from "./Components/Header/NavComponent.module.css";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -18,7 +18,7 @@ function App() {
       <TopNavComponent />
       <Row className="h-100 w-100">
         {/* Navbar Column */}
-        <Col xs="auto" className="h-100">
+        <Col xs="auto" className={styles.navColumn}>
           <NavComponent />
         </Col>
 
@@ -35,14 +35,11 @@ function App() {
                 <InboxPage />
               </Route>
             )}
-            <Route path="/home">
-              <HomePage />
-            </Route>
             <Route path="/sent" exact>
               <SentPage />
             </Route>
             <Route path="/sent/:id">
-            <SentDetailPage/>
+              <SentDetailPage />
             </Route>
             <Route path="/inbox" exact>
               <InboxPage />
