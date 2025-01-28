@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
+import styles from "./SentPage.module.css";
 
 const SentPage = () => {
   const [mailList, setMailList] = useState([]);
   const email = localStorage.getItem("email").split("@")[0].toLowerCase();
+
   useEffect(() => {
     fetch(
       `https://mailbox-client-a25a4-default-rtdb.firebaseio.com/${email}/sent.json`,
@@ -40,21 +42,18 @@ const SentPage = () => {
       setMailList(newMailList);
     });
   };
+
   return (
     <>
-      <h1 className="my-3">SENT MAILS</h1>
-      <Row>
-        <Col xs={2}>
-          <strong>RECIPIENT</strong>
-        </Col>
-        <Col xs={10}>
-          <strong>MESSAGE</strong>
-        </Col>
+      <h1 className={styles.sentTitle}>SENT MAILS</h1>
+      <Row className={styles.headerRow}>
+        <Col className={styles.recipientHeader}>Recipient</Col>
+        <Col className={styles.messageHeader}>Message</Col>
+        <Col className={styles.deleteHeader}>Delete</Col>
       </Row>
-      <hr />
       {mailList.map((mail) => (
-        <Row key={mail.id}>
-          <Col xs={2}>
+        <Row key={mail.id} className={styles.sentRow}>
+          <Col className={styles.recipientCol}>
             <Link
               to={`/sent/${mail.id}`}
               className="text-decoration-none text-dark"
@@ -62,7 +61,7 @@ const SentPage = () => {
               {mail.recipient}
             </Link>
           </Col>
-          <Col xs={8}>
+          <Col className={styles.messageCol}>
             <Link
               to={`/sent/${mail.id}`}
               className="text-decoration-none text-dark"
@@ -70,9 +69,12 @@ const SentPage = () => {
               <div dangerouslySetInnerHTML={{ __html: mail.bodyMessage }} />
             </Link>
           </Col>
-
-          <Col xs={2}>
-            <Button variant="danger" onClick={() => deleteMailHandler(mail.id)}>
+          <Col className={styles.deleteCol}>
+            <Button
+              variant="primary"
+              className={styles.deleteButton}
+              onClick={() => deleteMailHandler(mail.id)}
+            >
               Delete
             </Button>
           </Col>
@@ -81,4 +83,5 @@ const SentPage = () => {
     </>
   );
 };
+
 export default SentPage;

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 import { mailStoreActions } from "../../store/MailStore";
+import styles from "./InboxPage.module.css";
 
 const InboxPage = () => {
   const [mailList, setMailList] = useState([]);
   const dispatch = useDispatch();
   const email = localStorage.getItem("email").split("@")[0].toLowerCase();
-  const unReadMailCount = useSelector(state => state.mailStore.unReadMailCount);
+  const unReadMailCount = useSelector((state) => state.mailStore.unReadMailCount);
 
   useEffect(() => {
     const fetchData = () => {
@@ -21,11 +22,9 @@ const InboxPage = () => {
           },
         }
       )
-        .then(
-          (res) => res.json())
-          .then((data) => {
+        .then((res) => res.json())
+        .then((data) => {
           if (data) {
-            console.log(data);
             const mails = Object.keys(data).map((key) => ({
               id: key,
               subject: data[key].subject,
@@ -37,7 +36,7 @@ const InboxPage = () => {
             dispatch(mailStoreActions.setMailStoreList(mails));
 
             // update unread count
-            const unreadCount = mails.filter(mail => !mail.read).length;
+            const unreadCount = mails.filter((mail) => !mail.read).length;
             dispatch(mailStoreActions.setUnReadMailCount(unreadCount));
           }
         });
@@ -45,7 +44,7 @@ const InboxPage = () => {
 
     fetchData();
 
-    //setting interval so that it fetched every 2 secs
+    //setting interval so that it fetches every 2 secs
     const intervalId = setInterval(fetchData, 2000);
 
     // clearing interval when component unmounts
@@ -53,11 +52,14 @@ const InboxPage = () => {
   }, [email, dispatch]);
 
   const deleteMailHandler = (id) => {
-    const mailToDelete = mailList.find(mail => mail.id === id);
-    fetch(`https://mailbox-client-a25a4-default-rtdb.firebaseio.com/${email}/inbox/${id}.json`, {
-      method: "DELETE",
-    }).then(() => {
-      const newMailList = mailList.filter(mail => mail.id !== id);
+    const mailToDelete = mailList.find((mail) => mail.id === id);
+    fetch(
+      `https://mailbox-client-a25a4-default-rtdb.firebaseio.com/${email}/inbox/${id}.json`,
+      {
+        method: "DELETE",
+      }
+    ).then(() => {
+      const newMailList = mailList.filter((mail) => mail.id !== id);
       setMailList(newMailList);
       dispatch(mailStoreActions.setMailStoreList(newMailList));
 
@@ -70,31 +72,35 @@ const InboxPage = () => {
 
   return (
     <>
-      <h1 className="my-3">INBOX</h1>
-      <Row>
-        <Col xs={1}></Col>
-        <Col xs={2}>
-          <strong>SENDER</strong>
-        </Col>
-        <Col xs={9}>
-          <strong>MESSAGE</strong>
-        </Col>
+      <h1 className={styles.inboxTitle}>INBOX</h1>
+
+      {/* Header Row for Sender and Message */}
+      <Row className={styles.headerRow}>
+        <Col className={styles.senderHeader}>Sender</Col>
+        <Col className={styles.messageHeader}>Message</Col>
+        <Col className={styles.deleteHeader}>Delete</Col>
       </Row>
-      <hr />
+
+      {/* Mail List */}
       {mailList.map((mail) => (
-        <Row key={mail.id}>
-          <Col xs={1} className="text-primary">{!mail.read && "NEW"}</Col>
-          <Col xs={2}>
-            <Link to={`/inbox/${mail.id}`} className="text-decoration-none text-dark">{mail.sender}</Link>
+        <Row key={mail.id} className={styles.inboxRow}>
+          <Col className={styles.senderCol}>
+            <span className={mail.read ? "" : styles.newMail}>{mail.sender}</span>
           </Col>
-          <Col xs={7}>
-            <Link to={`/inbox/${mail.id}`} className="text-decoration-none text-dark">
+          <Col className={styles.messageCol}>
+            <Link
+              to={`/inbox/${mail.id}`}
+              className="text-decoration-none text-dark"
+            >
               <div dangerouslySetInnerHTML={{ __html: mail.bodyMessage }} />
             </Link>
           </Col>
-
-          <Col xs={2}>
-            <Button variant="danger" onClick={() => deleteMailHandler(mail.id)}>
+          <Col className={styles.deleteCol}>
+            <Button
+              variant="primary"
+              className={styles.deleteButton}
+              onClick={() => deleteMailHandler(mail.id)}
+            >
               Delete
             </Button>
           </Col>

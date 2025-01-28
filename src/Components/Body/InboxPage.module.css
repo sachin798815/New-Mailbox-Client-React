@@ -1,0 +1,115 @@
+.inboxTitle {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+  }
+  
+  .headerRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .senderHeader, .messageHeader, .deleteHeader {
+    text-align: left;
+    color: #34495e;
+    flex: 1;
+  }
+  
+  .deleteHeader {
+    text-align: right;
+    flex: 0 0 120px;
+    margin-right: 37px;
+  }
+  
+  .inboxRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+  }
+  
+  .senderCol {
+    font-weight: bold;
+    color: #34495e;
+    flex: 1;
+  }
+  
+  .messageCol {
+    color: #2c3e50;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+    flex: 3;
+  }
+  
+  .newMail {
+    color: #3498db;
+    font-weight: bold;
+  }
+  
+  .deleteCol {
+    display: flex;
+    justify-content: flex-end;
+    flex: 0 0 120px;
+  }
+  
+  .deleteButton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .deleteButton:hover {
+    background-color: #c0392b;
+  }
+  
+  .deleteButton:focus {
+    outline: none;
+  }
+  
+  @media (max-width: 768px) {
+    .inboxRow {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .senderCol, .messageCol, .deleteCol {
+      padding-left: 0;
+      width: 100%;
+    }
+  
+    .deleteButton {
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .headerRow {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .senderHeader, .messageHeader, .deleteHeader {
+      width: 100%;
+      text-align: left;
+      padding-left: 0;
+    }
+  
+    .deleteHeader {
+      text-align: left;
+    }
+  }
+  

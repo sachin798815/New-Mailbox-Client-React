@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams, useHistory } from "react-router-dom";
 import { mailStoreActions } from "../../store/MailStore";
+import styles from "./MailDetailPage.module.css";
 
 const MailDetailPage = () => {
   const { id } = useParams();
@@ -10,6 +11,7 @@ const MailDetailPage = () => {
   const dispatch = useDispatch();
   const email = localStorage.getItem("email").split("@")[0].toLowerCase();
   const unReadMailCount = useSelector(state => state.mailStore.unReadMailCount);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchMailData = async () => {
@@ -51,13 +53,25 @@ const MailDetailPage = () => {
     fetchMailData();
   }, [email, id, dispatch, unReadMailCount]);
 
+  const goBackHandler = () => {
+    history.goBack();
+  };
+
   return (
-    <Container>
-      <h1 className="my-3">Mail Details</h1>
-      <Row className="my-2">From : {currentMail.sender}</Row>
-      <Row className="my-2">Subject : {currentMail.subject}</Row>
-      <Row className="my-2">Message :</Row>
-      <Row className="my-2">{currentMail.bodyMessage}</Row>
+    <Container className={styles.container}>
+      <h1 className={styles.mailTitle}>Mail Details</h1>
+      <Row className={`${styles.mailDetailRow} ${styles.mailSender}`}>
+        <div>From: {currentMail.sender}</div>
+      </Row>
+      <Row className={`${styles.mailDetailRow} ${styles.mailSubject}`}>
+        <div>Subject: {currentMail.subject}</div>
+      </Row>
+      <Row className={`${styles.mailDetailRow} ${styles.mailBody}`}>
+        <div>{currentMail.bodyMessage}</div>
+      </Row>
+      <Button className={styles.backButton} onClick={goBackHandler}>
+        Back to Inbox
+      </Button>
     </Container>
   );
 };

@@ -28,17 +28,17 @@ const NavComponent = () => {
       >
         <Container>
           <Nav className="flex-column">
-            <bdoutton
-              className={styles.composeButton}
+            <button
+              className={`${styles.composeButton} ${styles.navLinkItem}`}
               onClick={showComposeFunction}
             >
               COMPOSE
-            </bdoutton>
+            </button>
 
             <NavLink
               to="/inbox"
               className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
+                isActive ? `${styles.navLinkItem} active` : styles.navLinkItem
               }
             >
               INBOX
@@ -46,7 +46,7 @@ const NavComponent = () => {
             <NavLink
               to="/sent"
               className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
+                isActive ? `${styles.navLinkItem} active` : styles.navLinkItem
               }
             >
               SENT
@@ -54,8 +54,6 @@ const NavComponent = () => {
           </Nav>
         </Container>
 
-        {/* Logout button placed at the end */}
-        
         <Button
           variant="danger"
           className={`${styles.logoutButton}`}

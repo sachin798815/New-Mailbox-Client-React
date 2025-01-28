@@ -1,0 +1,85 @@
+.container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .mailTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .mailDetailRow {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .mailSender,
+  .mailSubject,
+  .mailBody {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mailSender {
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  .mailSubject {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #3498db;
+  }
+  
+  .mailBody {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #2c3e50;
+  }
+  
+  .backButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .backButton:hover {
+    background-color: #2980b9;
+  }
+  
+  .backButton:focus {
+    outline: none;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+  
+    .mailTitle {
+      font-size: 2rem;
+    }
+  
+    .mailSender, .mailSubject, .mailBody {
+      padding: 1rem;
+    }
+  
+    .backButton {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+    }
+  }
+  
